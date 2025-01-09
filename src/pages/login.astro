@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+<script>
+  let password = '';
+  let errorMessage = '';
+
+  function handleLogin(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    password = formData.get('password');
+    if (password === 'your-secure-password') {
+      window.location.href = '/dashboard';
+    } else {
+      errorMessage = 'Invalid password. Please try again.';
+      document.getElementById('error-message').textContent = errorMessage;
+    }
+  }
+</script>
+---
+
+<Layout>
+  <form onsubmit="handleLogin(event)">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
+    <button type="submit">Login</button>
+    <p id="error-message"></p>
+  </form>
+</Layout>
