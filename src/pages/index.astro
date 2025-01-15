@@ -1,11 +1,85 @@
 ---
 import Header from '../components/Header.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Header />
-</Layout>
+<head>
+    <script>
+        (function(d) {
+        var config = {
+            kitId: 'aan1vqp',
+            scriptTimeout: 3000,
+            async: true
+        },
+        h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+        })(document);
+    </script>
+</head>
+
+<body>
+    <Header />
+    <div class="title">
+        <h1>Kanikan Lab.</h1>
+        <p>Portfolio site</p>
+    </div>
+
+<script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three/build/three.module.js';
+  import VANTA from 'https://cdn.jsdelivr.net/npm/vanta/dist/vanta.globe.min.js';
+
+  VANTA.GLOBE({
+    el: ".background",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.00,
+    scaleMobile: 1.00
+  });
+</script>
+</body>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #1E1434;
+    }
+    .title {
+        width: 100%;
+        height: 832px;
+        
+    }
+    .title h1 {
+        top: 50%;
+        left: 50%;
+        color: white;
+        text-align: left;
+        font-family: "krok", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 80px;
+        margin: 0;
+        padding-bottom: 20px;
+    }
+    .title p {
+        top: 50%;
+        left: 50%;
+        color: white;
+        text-align: left;
+        font-family: "krok", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 25px;
+        margin: 0;
+    }
+    .about-container .about-title {
+        font-size: 100px;
+        font-weight: 400;
+        font-family: "krok", sans-serif;
+        color: white;
+        text-align: left;
+        margin-left: 100px;
+        margin-top: 100px;
+    }
+</style>
