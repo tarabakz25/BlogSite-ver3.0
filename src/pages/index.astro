@@ -1,5 +1,16 @@
 ---
 import Header from '../components/Header.astro'
+import Works from '../components/WorksIntro.astro'
+import Footer from '../components/Footer.astro'
+import SkillsBox from '../components/SkillsBox.astro'
+import ContactBox from '../components/ContactBox.astro'
+
+const title_font = "krok";
+const description_font = "Zen Old Mincho";
+const program_font = "Anonymous pro";
+
+const color1 = "#EC3A7D"
+const color2 = "#1E1434"
 ---
 <head>
     <meta charset="UTF-8">
@@ -33,17 +44,75 @@ import Header from '../components/Header.astro'
             <div class="content">
                 <h1>Kizuki Aiki</h1>
                 <h2>相木 絆煌</h2>
-                <p>2008年東京出身,神山まるごと高等専門学校一期生.<wbr />このサイトの製作者. テクノロジー,AI,アウトドアを追及中.</p>
+                <p>2008年東京出身,神山まるごと高等専門学校一期生.</p>
+                <p>このサイトの製作者. テクノロジー,AI,アウトドアを追及中.</p>
             </div>
         </div>
     </div>
+    <div class="works">
+        <h1>Works</h1>
+        <div class="container">
+            <Works worksImg="src/assets/LINE_ALBUM_kmcxhitoto_241101_2 4.png" worksTitle="hitoto x kmc" worksDescription="高専祭大型ワークショップ" />
+            <Works worksImg="src/assets/max 1.png" worksTitle="AdobeMAX 2023" worksDescription="AdobeMAX2023にて初参加の作品" />
+        </div>
+    </div> 
+    <div class="skills">
+        <h1>Skills</h1>
+        <div class="container">
+            <div class="programming">
+                <h2>Programming</h2>
+                <div class="container">
+                    <div class="languages">
+                        <h3>Languages</h3>
+                        <SkillsBox skillName="Python" />
+                        <SkillsBox skillName="JavaScript" />
+                        <SkillsBox skillName="HTML/CSS" />
+                        <SkillsBox skillName="C++" />
+                        <SkillsBox skillName="swift" />
+                    </div>
+                    <div class="frameworks">
+                        <h3>Frameworks</h3>
+                        <SkillsBox skillName="Flask" />
+                        <SkillsBox skillName="Node.js" />
+                        <SkillsBox skillName="Three.js" />
+                        <SkillsBox skillName="astro" />
+                        <SkillsBox skillName="swiftUI" />
+                    </div>
+                </div>
+            </div>
+            <div class="tools">
+                <h2>Tools</h2>
+                <SkillsBox skillName="Github" />
+                <SkillsBox skillName="Arc" />
+                <SkillsBox skillName="raycast" />
+                <SkillsBox skillName="Stable Diffusion" />
+            </div>
+            <div class="design">
+                <h2>Design</h2>
+                <SkillsBox skillName="Figma" />
+                <SkillsBox skillName="illustrator" />
+                <SkillsBox skillName="Photoshop" />
+                <SkillsBox skillName="Filmora" />
+            </div>
+        </div>
+    </div>
+    <div class="contact">
+        <h2>Contact</h2>
+        <div class="container">
+            <ContactBox contactName="X" contactLink="https://x.com/kz25_kmc" />
+            <ContactBox contactName="Instagram" contactLink="https://www.instagram.com/kizu25_01/" />
+            <ContactBox contactName="Github" contactLink="https://github.com/tarabakz25" />
+        </div>
+    </div>
+    <Footer />
+
     <script type="module">
         import { initVantaGlobe } from "/public/scripts/vanta";
         initVantaGlobe();
     </script>
 </body>
 
-<style>
+<style define:vars={{title_font, description_font, color1, color2, program_font}}>
     *, *::before, *::after {
         box-sizing: border-box;
     }
@@ -51,7 +120,7 @@ import Header from '../components/Header.astro'
     body {
         margin: 0;
         padding: 0;
-        background-color: #1E1434;
+        background-color: var(--color2);
         overflow-x: hidden; /* 横スクロールを防止 */
     }
     .background {
@@ -75,7 +144,7 @@ import Header from '../components/Header.astro'
     .title h1 {
         color: white;
         text-align: left;
-        font-family: "krok", sans-serif;
+        font-family: var(--title_font);
         font-weight: 400;
         font-style: normal;
         font-size: 80px;
@@ -85,7 +154,7 @@ import Header from '../components/Header.astro'
     .title p {
         color: white;
         text-align: left;
-        font-family: "krok", sans-serif;
+        font-family: var(--title_font);
         font-weight: 400;
         font-style: normal;
         font-size: 25px;
@@ -99,51 +168,243 @@ import Header from '../components/Header.astro'
         padding-left: 50px;
         position: relative;
         z-index: 1;
-        background-color: rgba(30, 20, 52, 0.8);
+        background-color: rgba(30, 20, 52, 0.9);
     }
     .about h1 {
         padding: 70px 0;
         color: white;
         text-align: left;
-        font-family: "krok", sans-serif;
+        font-family: var(--title_font);
         font-weight: 400;
         font-style: normal;
         font-size: 80px;
         margin: 0;
     }
     .about h1::first-letter {
-        color: #EC3A7D;
+        color: var(--color1);
     }
     .about .container {
         width: 100%;
-        height: 400px;
+        height: 600px;
         display: flex;
-        align-items: center;
-        justify-content: flex-start;
+        align-items: flex-start;
+        justify-content: center; /* 真ん中に配置 */
     }
     .about .container img {
         width: 300px; /* 希望する幅に変更 */
         height: auto;
         max-width: 100%;
-        margin: 50px 20px; 
+        margin: 20px; 
         flex-shrink: 0;
     }
     .about .container .content {
         color: white;
-        font-family: "krok", sans-serif;
+        font-family: var(--title_font);
         font-weight: 400;
         font-style: normal;
-        padding: 0 40px;
+        padding-left: 100px;
+    }
+    .about .container .content h1 {
+        font-size: 96px;
+        padding: 0;
+    }
+    .about .container .content h2 {
+        font-size: 32px;
+        margin: 0;
+        padding-bottom: 60px;
+        font-family: var(--description_font);
     }
     .about .container .content p {
         line-height: 1.5;
         margin: 0;
         padding-bottom: 20px;
-        font-family: "Zen Old Mincho";
-        text-align: right;
+        font-size: 18px;
+        font-family: var(--description_font);
+    }
+    .works {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+        background-color: #fff;
+    }
+    .works h1 {
+        padding: 70px 0;
+        color: black;
+        text-align: left;
+        font-family: var(--title_font);
+        font-weight: 400;
+        font-style: normal;
+        font-size: 80px;
+        margin-left: 50px;
+    }
+    .works h1::first-letter {
+        color: var(--color1);
+    }
+    .works .container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding-bottom: 70px;
+    }
+    .skills {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+        background-color: var(--color2);
+    }
+    .skills h1 {
+        padding: 70px 0;
+        color: white;
+        text-align: left;
+        font-family: var(--title_font);
+        font-weight: 400;
+        font-style: normal;
+        font-size: 80px;
+        padding-left: 50px;
+        letter-spacing: 0.1em;
+    }
+    .skills h1::first-letter {
+        color: var(--color1);
+    }
+    .skills .container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding-bottom: 70px;
+    }
+    .skills .container .programming h2 {
+        color: white;
+        font-family: var(--program_font);
+        font-weight: 400;
+        font-size: 48px;
+        margin: 0 auto; /* 真ん中に配置 */
+        padding: 20px 0;
+        text-align: center; /* テキストを中央揃え */
     }
 
+    .skills .container .programming .container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row; /* 横に並べる */
+        align-items: flex-start;
+        justify-content: space-around; /* 均等に配置 */
+        position: relative;
+        padding-bottom: 70px;
+    }
 
+    .skills .container .programming .languages,
+    .skills .container .programming .frameworks {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .skills .container .programming .languages h3,
+    .skills .container .programming .frameworks h3 {
+        color: white;
+        font-family: var(--program_font);
+        font-weight: 400;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .skills .container .programming .languages .SkillsBox,
+    .skills .container .programming .frameworks .SkillsBox {
+        border: 1px solid white;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        width: 200px;
+        text-align: center;
+        color: white;
+        font-family: var(--program_font);
+        font-weight: 400;
+        font-size: 18px;
+    }
+    .skills .container .tools,
+    .skills .container .design {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px; /* マージンを追加 */
+    }
+
+    .skills .container .tools h2,
+    .skills .container .design h2 {
+        color: white;
+        font-family: var(--program_font);
+        font-weight: 400;
+        font-size: 48px;
+        margin: 0 auto; /* 真ん中に配置 */
+        padding-bottom: 20px;
+        text-align: center; /* テキストを中央揃え */
+    }
+
+    .skills .container .tools .SkillsBox,
+    .skills .container .design .SkillsBox {
+        border: 1px solid white;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        width: 200px;
+        text-align: center;
+        color: white;
+        font-family: var(--program_font);
+        font-weight: 400;
+        font-size: 18px;
+    }
+    .contact {
+        width: 100%;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 0; /* マージンをパディングに変更 */
+        background-color: var(--color2);
+        opacity: 0.8;
+    }
+
+    .contact h2 {
+        color: white;
+        font-family: var(--program_font);
+        font-weight: 400;
+        font-size: 48px;
+        margin: 0 auto; /* 真ん中に配置 */
+        padding-bottom: 20px;
+        text-align: center; /* テキストを中央揃え */
+    }
+    .contact .container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .contact .container .ContactBox {
+        border: 1px solid white;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        width: 200px;
+        text-align: center;
+        color: white;
+        font-family: var(--program_font);
+        font-weight: 400;
+        font-size: 18px;
+    }
 
     @media (max-width: 768px) {
         .about .container img {

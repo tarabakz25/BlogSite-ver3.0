@@ -1,0 +1,52 @@
+---
+const { worksImg, worksTitle, worksDescription } = Astro.props;
+---
+<div class="works-intro">
+    <img src={worksImg} />
+    <div class="works-intro-content">
+        <p>{worksDescription}</p>
+        <h1>{worksTitle}</h1>
+    </div>
+</div>
+
+<style>
+    .works-intro {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 60px 0;
+    }
+    .works-intro img {
+        width: 700px;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    .works-intro-content {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding-bottom: 70px;
+    }
+    .works-intro-content h1 {
+        font-family: var(--title_font);
+        font-weight: 400;
+        font-style: normal;
+        font-size: 60px;
+        margin: 0;
+    }
+    .works-intro-content p {
+        font-family: var(--description_font);
+        font-weight: 400;
+        font-style: normal;
+        font-size: 25px;
+        margin: 0;
+    }
+</style>
