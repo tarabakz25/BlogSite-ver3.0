@@ -1,37 +1,49 @@
 ---
 ---
 <header>
-    <img src="src/assets/Logo.png">
+    <img src="src/assets/Logo.png" alt="Logo">
     <ul class="menu">
-        <li><a href="">About</a></li>
-        <li><a href="">Blog</a></li>
-        <li><a href="">Works</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/works">Works</a></li>
     </ul>
 </header>
 
 <style>
     header {
-        width: auto;
+        position: fixed; /* ヘッダーを固定位置に設定 */
+        top: 0;          /* ページの上部に配置 */
+        left: 0;         /* 左端に配置 */
+        width: 100%;     /* 幅を全幅に設定 */
+        box-sizing: border-box; /* パディングを含めた幅設定 */
         padding: 10px 50px;
         display: flex;
         justify-content: space-between;
         background-color: #231935;
         align-items: center;
-        margin: 0 auto;
+        z-index: 1000;   /* 他の要素より前面に表示 */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ヘッダーに影を追加 */
+        height: 80px;    /* ヘッダーの高さを固定 */
+        opacity: 0.9;    /* ヘッダーの透明度を調整 */
     }
+
     header img {
         width: 40px;
         height: auto;
     }
-    ul {
+
+    ul.menu {
         list-style: none;
         display: flex;
-        gap: 100px;
+        gap: 80px; /* ギャップを調整 */
         padding: 0;
+        margin: 0;
     }
+
     li {
-        float: right;
+        /* float: right; 削除 */
     }
+
     li a {
         font-family: "krok", sans-serif;
         font-weight: 400;
@@ -40,10 +52,12 @@
         text-decoration: none;
         font-size: 25px;
     }
+
     li a::first-letter {
         transition: color 0.5s ease;
         animation: dissolve 0.5s forwards;
     }
+
     li a:hover::first-letter {
         color: #EB3A7D;
         animation: dissolve-hover 0.5s forwards;
@@ -64,6 +78,20 @@
         }
         to {
             opacity: 0.5;
+        }
+    }
+
+    /* レスポンシブデザインの調整 */
+    @media (max-width: 768px) {
+        header {
+            padding: 10px 20px;
+            height: 50px;
+        }
+        ul.menu {
+            gap: 20px; /* ギャップをさらに減少 */
+        }
+        li a {
+            font-size: 18px;
         }
     }
 </style>
