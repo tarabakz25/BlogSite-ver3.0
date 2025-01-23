@@ -1,0 +1,50 @@
+---
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import Cursor from '../components/Cursor.astro'
+import Scripts from '../components/Scripts.astro'
+import ContactBox from '../components/ContactBox.astro'
+
+import { Image } from 'astro:assets';
+import myIcon from '../assets/Vector.svg'
+---
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Zen+Old+Mincho&display=swap" rel="stylesheet">
+    <title>About</title>
+    <Scripts />
+</head>
+
+<body>
+    <Cursor />
+    <Header />
+    <div class="title">About</div>
+    <div class="my-profile">
+        <div class="container">
+            <Image src={myIcon} alt="myIcon" />
+            <div class="content">
+                <h1>Kizuki Aiki</h1>
+                <h2>相木 絆煌</h2>
+                <p>2008年東京都出身.</p>
+                <p>地元の世田谷区を離れ,徳島県で新たに作られた学校</p>
+                <p>“神山まるごと高専”に合格,一期生として入学.</p>
+                <p>現在はプログラミングや技術コンテスト,デザインなど多様な</p>
+                <p>プロジェクトを実行中です.</p>
+                <p>最近はキャンプや技術イベント,ハッカソンなどに参加・参戦してます.</p>
+                <p>このサイトの公開を機に,アプリやサービス開発も積極的にやっていく予定です.</p>
+            </div>
+        </div>
+    </div>
+    <div class="skills"></div>
+    <div class="contact">
+        <h2>aikikizuki@gmail.com</h2>
+        <div class="container">
+            <ContactBox contactName="X" contactLink="https://x.com/kz25_kmc" />
+            <ContactBox contactName="Instagram" contactLink="https://www.instagram.com/kizu25_01/" />
+            <ContactBox contactName="Github" contactLink="https://github.com/tarabakz25" />
+        </div>
+    </div>
+    <Footer />
+</body>

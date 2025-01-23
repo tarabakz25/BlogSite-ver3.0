@@ -4,7 +4,14 @@ import Works from '../components/WorksIntro.astro'
 import Footer from '../components/Footer.astro'
 import SkillsBox from '../components/SkillsBox.astro'
 import ContactBox from '../components/ContactBox.astro'
+import Cursor from '../components/Cursor.astro'
+import Scripts from '../components/Scripts.astro'
+
 import { Image } from 'astro:assets';
+import logo from "../assets/images/Logo.png"
+import hitotoxkmc from '../assets/images/LINE_ALBUM_kmcxhitoto_241101_2 4.png'
+import max2023 from '../assets/images/max 1.png'
+import aboutIcon from '../assets/Vector.svg'
 
 const title_font = "krok";
 const description_font = "Zen Old Mincho";
@@ -19,33 +26,11 @@ const color2 = "#1E1434"
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Zen+Old+Mincho&display=swap" rel="stylesheet">
     <title>Kanikan Lab.</title>
-    <script>
-        (function(d) {
-        var config = {
-            kitId: 'aan1vqp',
-            scriptTimeout: 3000,
-            async: true
-        },
-        h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-        })(document);
-    </script>
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E447BSCFR8"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-E447BSCFR8');
-    </script>
+    <Scripts />
 </head>
 
 <body>
-    <div class="loading-screen" id="loading-screen">
-        <video autoplay muted id="loading-video" class="loading-video">
-            <source src="src/assets/Lottielab Loading.mp4" type="video/mp4">
-        </video>
-    </div>
+    <Cursor />
     <div class="background"></div>
     <Header />
     <div class="title">
@@ -55,7 +40,7 @@ const color2 = "#1E1434"
     <div class="about">
         <h1>About</h1>
         <div class="container">
-            <img src="/images/Vector.svg" alt="Vector Illustration">
+            <Image src={aboutIcon} alt="aboutIcon" />
             <div class="content">
                 <h1>Kizuki Aiki</h1>
                 <h2>相木 絆煌</h2>
@@ -63,12 +48,13 @@ const color2 = "#1E1434"
                 <p>このサイトの製作者. テクノロジー,AI,アウトドアを追及中.</p>
             </div>
         </div>
+        <a href="./about">View more...</a>
     </div>
     <div class="works">
         <h1>Works</h1>
         <div class="container">
-            <Works worksImg="/images/LINE_ALBUM_kmcxhitoto_241101_2 4.png" worksTitle="hitoto x kmc" worksDescription="高専祭大型ワークショップ" />
-            <Works worksImg="/images/max 1.png" worksTitle="AdobeMAX 2023" worksDescription="AdobeMAX2023にて初参加の作品" />
+            <Works worksImg={hitotoxkmc} worksTitle="hitoto x kmc" worksDescription="高専祭大型ワークショップ" />
+            <Works worksImg={max2023} worksTitle="AdobeMAX 2023" worksDescription="AdobeMAX2023にて初参加の作品" />
         </div>
     </div> 
     <div class="skills">
@@ -121,7 +107,6 @@ const color2 = "#1E1434"
     </div>
     <Footer />
 </body>
-
 <style define:vars={{title_font, description_font, color1, color2, program_font}}>
     *, *::before, *::after {
         box-sizing: border-box;
@@ -131,31 +116,9 @@ const color2 = "#1E1434"
         margin: 0;
         padding: 0;
         background-color: var(--color2);
-        overflow-x: hidden; /* 横スクロールを防止 */
-        overflow-y: hidden; /* 縦スクロールを防止 */
+        overflow-x: hidden;
     }
-    .loading-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--color2);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: opacity 1s ease; /* ディゾルブアニメーションを追加 */
-    }
-    .loading-screen.fade-out {
-        opacity: 0;
-        pointer-events: none;
-    }
-    .loading-video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+
     .background {
         position: fixed;
         top: 0;
@@ -198,13 +161,12 @@ const color2 = "#1E1434"
         height: auto;
         display: flex;
         flex-direction: column;
-        padding-left: 50px;
         position: relative;
         z-index: 1;
         background-color: rgba(30, 20, 52, 0.9);
     }
     .about h1 {
-        padding: 70px 0;
+        padding: 70px 50px;
         color: white;
         text-align: left;
         font-family: var(--title_font);
@@ -218,13 +180,13 @@ const color2 = "#1E1434"
     }
     .about .container {
         width: 100%;
-        height: 600px;
+        height: 400px;
         display: flex;
         align-items: flex-start;
-        justify-content: center; /* 真ん中に配置 */
+        justify-content: center;
     }
     .about .container img {
-        width: 300px; /* 希望する幅に変更 */
+        width: 300px;
         height: auto;
         max-width: 100%;
         margin: 20px; 
@@ -253,6 +215,25 @@ const color2 = "#1E1434"
         padding-bottom: 20px;
         font-size: 18px;
         font-family: var(--description_font);
+    }
+    .about a {
+        margin: 40px auto;
+        display: inline-block;
+        padding: 15px 40px;
+        background-color: transparent;
+        color: white;
+        text-decoration: none;
+        border: 2px solid white;
+        border-radius: 50px;
+        text-align: center;
+        font-family: var(--title_font);
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    .about a:hover {
+        background-color: var(--color1);
+        color: #fff;
+        border-color: var(--color1);
     }
     .works {
         width: 100%;
@@ -324,18 +305,18 @@ const color2 = "#1E1434"
         font-family: var(--program_font);
         font-weight: 400;
         font-size: 48px;
-        margin: 0 auto; /* 真ん中に配置 */
+        margin: 0 auto;
         padding: 20px 0;
-        text-align: center; /* テキストを中央揃え */
+        text-align: center;
     }
 
     .skills .container .programming .container {
         width: 100%;
         height: auto;
         display: flex;
-        flex-direction: row; /* 横に並べる */
+        flex-direction: row;
         align-items: flex-start;
-        justify-content: space-around; /* 均等に配置 */
+        justify-content: space-around;
         position: relative;
         padding-bottom: 70px;
     }
@@ -373,7 +354,7 @@ const color2 = "#1E1434"
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 40px; /* マージンを追加 */
+        margin-bottom: 40px;
     }
 
     .skills .container .tools h2,
@@ -382,9 +363,9 @@ const color2 = "#1E1434"
         font-family: var(--program_font);
         font-weight: 400;
         font-size: 48px;
-        margin: 0 auto; /* 真ん中に配置 */
+        margin: 0 auto;
         padding-bottom: 20px;
-        text-align: center; /* テキストを中央揃え */
+        text-align: center;
     }
 
     .skills .container .tools .SkillsBox,
@@ -405,7 +386,7 @@ const color2 = "#1E1434"
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 100px 0; /* マージンをパディングに変更 */
+        padding: 100px 0;
         background-color: var(--color2);
         opacity: 0.8;
     }
@@ -415,9 +396,9 @@ const color2 = "#1E1434"
         font-family: var(--program_font);
         font-weight: 400;
         font-size: 48px;
-        margin: 0 auto; /* 真ん中に配置 */
+        margin: 0 auto;
         padding-bottom: 20px;
-        text-align: center; /* テキストを中央揃え */
+        text-align: center;
     }
     .contact .container {
         display: flex;
@@ -441,7 +422,7 @@ const color2 = "#1E1434"
 
     @media (max-width: 768px) {
         .about .container img {
-            width: 100%; /* モバイルデバイス用 */
+            width: 100%;
             max-width: 300px;
             margin-right: 10px;
         }
@@ -461,21 +442,4 @@ const color2 = "#1E1434"
 <script type="module">
     import { initVantaGlobe } from "/public/scripts/vanta";
     initVantaGlobe();
-</script>
-
-<script type="module">
-    const video = document.getElementById('loading-video');
-    const loadingScreen = document.getElementById('loading-screen');
-
-    video.addEventListener('ended', () => {
-        loadingScreen.classList.add('fade-out');
-        document.body.style.overflowY = 'auto'; // スクロールを再度有効にする
-    });
-
-    window.addEventListener('load', () => {
-        // Ensure the loading screen is removed after the fade-out animation
-        loadingScreen.addEventListener('transitionend', () => {
-            loadingScreen.style.display = 'none';
-        });
-    });
 </script>

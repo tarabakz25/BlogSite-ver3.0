@@ -1,8 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 const { worksImg, worksTitle, worksDescription } = Astro.props;
 ---
 <div class="works-intro">
-    <img src={worksImg} />
+    <Image src={worksImg} alt={worksTitle} />
     <div class="works-intro-content">
         <p>{worksDescription}</p>
         <h1>{worksTitle}</h1>

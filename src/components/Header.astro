@@ -1,7 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import logo from "../assets/images/Logo.png"
 ---
 <header>
-    <img src="src/assets/Logo.png" alt="Logo">
+    <Image src={logo} alt="Logo" />
     <ul class="menu">
         <li><a href="/about">About</a></li>
         <li><a href="/blog">Blog</a></li>
