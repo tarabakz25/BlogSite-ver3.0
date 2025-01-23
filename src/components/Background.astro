@@ -1,0 +1,13 @@
+---
+// Astroコンポーネント
+---
+
+<div class="background"></div>
+
+<script>
+  // クライアントサイドでのみ実行
+  document.addEventListener('DOMContentLoaded', async () => {
+    const { initVantaGlobe } = await import('../scripts/vanta.js');
+    initVantaGlobe();
+  });
+</script>
