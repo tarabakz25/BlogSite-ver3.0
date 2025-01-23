@@ -3,9 +3,9 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-    ssr: {
-      noExternal: ['three', 'vanta']
+  server: {
+    headers: {
+      'Permissions-Policy': 'private-state-token-redemption=(), private-state-token-issuance=(), browsing-topics=()'
     }
   }
 });
