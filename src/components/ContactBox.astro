@@ -1,38 +1,66 @@
 ---
 const { contactName, contactLink } = Astro.props;
+
+const color1 = '#EC3A7D';
+const color2 = '#1E1434';
 ---
+
 <div class="contact-box">
     <a href={contactLink}>{contactName}</a>
 </div>
 
-<style>
+<style define:vars={{ color1, color2 }}>
     .contact-box {
-        margin: 30px;    
+        margin: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 20px 40px;
-        border: 2px solid white;
+        border: 2px solid transparent;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(to top left, white, white);
         position: relative;
         color: white;
         font-family: 'Anonymous pro', sans-serif;
         font-size: 24px;
-        width: 200px; /* 必要に応じて調整 */
-        height: 20px; /* 必要に応じて調整 */
+        width: 200px;
+        height: 20px;
+        transition:
+            border-color 0.3s ease,
+            color 0.3s ease,
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
     }
+
     .contact-box a {
         color: white;
         text-decoration: none;
+        margin-bottom: 5px;
+        text-align: center;
+        width: 100%;
+        line-height: 1.2;
+        transition: color 0.3s ease;
     }
+
+    .contact-box:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
     .contact-box::before,
     .contact-box::after {
         content: '';
         position: absolute;
-        border: 2px solid white;
+        border: 2px solid transparent;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(to top left, white, white);
         width: 100%;
         height: 100%;
         top: -10px;
         left: -10px;
         z-index: -1;
+        transition:
+            border-color 0.3s ease,
+            border-image-source 0.3s ease;
     }
 </style>

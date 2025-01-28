@@ -7,7 +7,7 @@ const { skillName } = Astro.props;
 
 <style>
     .skill-box {
-        margin: 30px;    
+        margin: 30px 60px;    
         display: flex;
         justify-content: center;
         align-items: center;
@@ -17,8 +17,16 @@ const { skillName } = Astro.props;
         color: white;
         font-family: 'Anonymous pro', sans-serif;
         font-size: 24px;
-        width: 150px; /* 必要に応じて調整 */
-        height: 30px; /* 必要に応じて調整 */
+        width: 150px;
+        height: 30px;
+    }
+
+    .skill-box span {
+        margin-bottom: 5px;
+        text-align: center;      /* 追加: テキストを中央揃え */
+        text-align-last: center; /* 追加: 最後の行も中央揃え */
+        width: 100%;            /* 追加: spanを親要素いっぱいに広げる */
+        line-height: 1.2;       /* 追加: 行間の調整 */
     }
 
     .skill-box::before,

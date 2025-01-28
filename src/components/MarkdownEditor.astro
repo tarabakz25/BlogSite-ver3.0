@@ -1,0 +1,58 @@
+---
+interface Props {
+  name: string;
+  value?: string;
+}
+
+const { name, value = '' } = Astro.props;
+---
+
+<div class="markdown-editor">
+  <textarea 
+    id={name}
+    name={name}
+    class="editor"
+    value={value}
+  ></textarea>
+  
+  <div class="preview"></div>
+</div>
+
+<style>
+  .markdown-editor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    height: 500px;
+  }
+
+  .editor {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    font-family: monospace;
+  }
+
+  .preview {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-y: auto;
+  }
+</style>
+
+<script>
+  import { marked } from 'marked';
+
+  const textarea = document.querySelector<HTMLTextAreaElement>('.editor');
+  const preview = document.querySelector<HTMLDivElement>('.preview');
+  
+  if (textarea && preview) {
+    textarea.addEventListener('input', async () => {
+      preview.innerHTML = await marked.parse(textarea.value);
+    });
+  }
+</script>

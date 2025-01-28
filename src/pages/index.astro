@@ -1,38 +1,24 @@
 ---
-import Header from '../components/Header.astro'
 import Works from '../components/WorksIntro.astro'
-import Footer from '../components/Footer.astro'
 import SkillsBox from '../components/SkillsBox.astro'
 import ContactBox from '../components/ContactBox.astro'
-import Cursor from '../components/Cursor.astro'
-import Scripts from '../components/Scripts.astro'
-
+import Layout from '../layouts/Layout.astro'
 import { Image } from 'astro:assets';
-import logo from "../assets/images/Logo.png"
+
 import hitotoxkmc from '../assets/images/LINE_ALBUM_kmcxhitoto_241101_2 4.png'
 import max2023 from '../assets/images/max 1.png'
 import aboutIcon from '../assets/Vector.svg'
 
-const title_font = "krok";
+const title_font = "krok, sans-serif";
 const description_font = "Zen Old Mincho";
 const program_font = "Anonymous pro";
 
 const color1 = "#EC3A7D"
 const color2 = "#1E1434"
 ---
-<head>
-    <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Zen+Old+Mincho&display=swap" rel="stylesheet">
-    <title>Kanikan Lab.</title>
-    <Scripts />
-</head>
 
-<body>
-    <Cursor />
+<Layout title="Kanikan Lab.">
     <div class="background"></div>
-    <Header />
     <div class="title">
         <h1>Kanikan Lab.</h1>
         <p>Portfolio site</p>
@@ -80,20 +66,22 @@ const color2 = "#1E1434"
                         <SkillsBox skillName="swiftUI" />
                     </div>
                 </div>
-            </div>
-            <div class="tools">
-                <h2>Tools</h2>
-                <SkillsBox skillName="Github" />
-                <SkillsBox skillName="Arc" />
-                <SkillsBox skillName="raycast" />
-                <SkillsBox skillName="Stable Diffusion" />
-            </div>
-            <div class="design">
-                <h2>Design</h2>
-                <SkillsBox skillName="Figma" />
-                <SkillsBox skillName="illustrator" />
-                <SkillsBox skillName="Photoshop" />
-                <SkillsBox skillName="Filmora" />
+                <div class="container">
+                    <div class="tools">
+                        <h2>Tools</h2>
+                        <SkillsBox skillName="Github" />
+                        <SkillsBox skillName="Arc" />
+                        <SkillsBox skillName="raycast" />
+                        <SkillsBox skillName="Stable Diffusion" />
+                    </div>
+                    <div class="design">
+                        <h2>Design</h2>
+                        <SkillsBox skillName="Figma" />
+                        <SkillsBox skillName="illustrator" />
+                        <SkillsBox skillName="Photoshop" />
+                        <SkillsBox skillName="Filmora" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -105,8 +93,7 @@ const color2 = "#1E1434"
             <ContactBox contactName="Github" contactLink="https://github.com/tarabakz25" />
         </div>
     </div>
-    <Footer />
-</body>
+</Layout>
 <style define:vars={{title_font, description_font, color1, color2, program_font}}>
     *, *::before, *::after {
         box-sizing: border-box;
@@ -140,7 +127,7 @@ const color2 = "#1E1434"
     .title h1 {
         color: white;
         text-align: left;
-        font-family: var(--title_font);
+        font-family: var(--title_font), sans-serif;
         font-weight: 400;
         font-style: normal;
         font-size: 80px;

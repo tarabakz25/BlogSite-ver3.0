@@ -1,0 +1,40 @@
+---
+import MainLayout from './MainLayout.astro';
+
+const { title } = Astro.props;
+---
+
+<MainLayout title={title}>
+  <nav class="admin-nav">
+    <a href="/blog/create">New Post</a>
+    <a href="/blog">Posts</a>
+  </nav>
+  
+  <main class="admin-content">
+    <slot />
+  </main>
+</MainLayout>
+
+<style>
+  .admin-nav {
+    background: #f8f9fa;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .admin-nav a {
+    margin-right: 1rem;
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .admin-nav a:hover {
+    text-decoration: underline;
+  }
+
+  .admin-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+</style>
