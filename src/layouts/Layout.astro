@@ -6,6 +6,13 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 import Scripts from '../components/scripts/Scripts.astro';
+
+const title_font = "krok, sans-serif";
+const description_font = "Zen Old Mincho";
+const program_font = "Anonymous pro";
+
+const color1 = "#EC3A7D"
+const color2 = "#1E1434"
 ---
 
 <!doctype html>
@@ -40,16 +47,21 @@ import Scripts from '../components/scripts/Scripts.astro';
                 h.className += ' wf-loading';
                 tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
                 tk.async = true;
-                tk.onload = tk.onreadystatechange = function () {
-                    a = this.readyState;
-                    if (f || (a && a != 'complete' && a != 'loaded')) return;
+                tk.addEventListener('load', function() {
                     f = true;
                     clearTimeout(t);
                     try {
                         Typekit.load(config);
                     } catch (e) {}
-                };
-                s.parentNode.insertBefore(tk, s);
+                    tk.parentNode?.removeChild(tk);
+                });
+
+                tk.addEventListener('error', function() {
+                    h.className = h.className.replace(/\bwf-loading\b/g, '') + ' wf-inactive';
+                    clearTimeout(t);
+                });
+
+                document.head.appendChild(tk);
             })(document);
         </script>
         <Scripts />

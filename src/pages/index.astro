@@ -7,7 +7,7 @@ import { Image } from 'astro:assets';
 
 import hitotoxkmc from '../assets/images/LINE_ALBUM_kmcxhitoto_241101_2 4.png'
 import max2023 from '../assets/images/max 1.png'
-import aboutIcon from '../assets/Vector.svg'
+import aboutIcon from '../assets/Vector.svg' 
 
 const title_font = "krok, sans-serif";
 const description_font = "Zen Old Mincho";
@@ -17,11 +17,17 @@ const color1 = "#EC3A7D"
 const color2 = "#1E1434"
 ---
 
-<Layout title="Kanikan Lab.">
+<Layout title="enterflow">
     <div class="background"></div>
     <div class="title">
-        <h1>Kanikan Lab.</h1>
-        <p>Portfolio site</p>
+        <div class="container">
+            <h1>enterflow</h1>
+            <p>Portfolio site</p>
+        </div>
+        <div class="container">
+            <h2>今までの制作物やスキルを缶詰のように詰め込んだサイトだよ。</h2>
+            <h2>ゆっくり見ていってね。</h2>
+        </div>
     </div>
     <div class="about">
         <h1>About</h1>
@@ -114,9 +120,9 @@ const color2 = "#1E1434"
         height: 100%;
         z-index: -1;
     }
-    .title {
+    .title .container {
         width: 100%;
-        height: calc(100vh - 50px);
+        height: calc(100vh);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -124,7 +130,7 @@ const color2 = "#1E1434"
         padding-left: 50px;
         z-index: 1;
     }
-    .title h1 {
+    .title .container h1 {
         color: white;
         text-align: left;
         font-family: var(--title_font), sans-serif;
@@ -134,7 +140,7 @@ const color2 = "#1E1434"
         margin: 0;
         padding-bottom: 20px;
     }
-    .title p {
+    .title .container p {
         color: white;
         text-align: left;
         font-family: var(--title_font);
@@ -143,7 +149,15 @@ const color2 = "#1E1434"
         font-size: 25px;
         margin: 0;
     }
-    .about {a
+    .title .container h2 {
+        color: white;
+        text-align: left;
+        font-family: var(--description_font);
+        font-style: normal;
+        font-size: 25px;
+    }
+
+    .about {
         width: 100%;
         height: auto;
         display: flex;
@@ -425,8 +439,32 @@ const color2 = "#1E1434"
         }
     }
 </style>
-
 <script type="module">
-    import { initVantaGlobe } from "./src/scripts/vanta.js";
-    initVantaGlobe();
-</script>
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
+    // VANTA 内部が window.THREE を参照するのでグローバルに登録する
+    window.THREE = THREE;
+    
+    import * as VantaGlobe from 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js';
+    // デフォルトエクスポートが存在しない場合、オブジェクトから GLOBE プロパティを取り出す
+    const { GLOBE } = VantaGlobe;
+    
+    if (typeof GLOBE === 'function') {
+      GLOBE({
+        el: ".background",
+        THREE,
+        mouseControls: true,
+        touchControls: false,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        size: 0.5,
+        color: 0xff3f81,
+        backgroundColor: 0x000000,
+      });
+    } else {
+      console.error('GLOBE is not a function', GLOBE);
+    }
+  </script>
+  

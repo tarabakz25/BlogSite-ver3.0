@@ -1,9 +1,8 @@
 ---
-import { Image } from 'astro:assets';
-import logo from "../assets/images/Logo.png"
+import logo from "../assets/logo.svg";
 ---
 <header>
-    <Image src={logo} alt="Logo" />
+    <a href="/"><img src={logo.src} alt="Logo" class="logo"></a>
     <ul class="menu">
         <li><a href="/about">About</a></li>
         <li><a href="/blog">Blog</a></li>
@@ -13,26 +12,31 @@ import logo from "../assets/images/Logo.png"
 
 <style>
     header {
-        position: fixed; /* ヘッダーを固定位置に設定 */
-        top: 0;          /* ページの上部に配置 */
-        left: 0;         /* 左端に配置 */
-        width: 100%;     /* 幅を全幅に設定 */
-        box-sizing: border-box; /* パディングを含めた幅設定 */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
         padding: 10px 50px;
         display: flex;
         justify-content: space-between;
-        background-color: #231935;
+        background-color: transparent;
+        backdrop-filter: blur(10px);
         align-items: center;
-        z-index: 1000;   /* 他の要素より前面に表示 */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ヘッダーに影を追加 */
-        height: 80px;    /* ヘッダーの高さを固定 */
-        opacity: 0.9;    /* ヘッダーの透明度を調整 */
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        height: 80px;
+    }
+    a {
+        height: 80%;
     }
 
-    header img {
-        width: 40px;
-        height: auto;
+    a .logo {
+        filter: invert(1);
+        height: 50px;
+        color: white;
     }
+
     .menu {
         list-style: none;
         display: flex;
@@ -45,18 +49,17 @@ import logo from "../assets/images/Logo.png"
     li {
         display: flex;
         align-items: flex-end;
-        height: 100%;
     }
+
     li a {
         font-family: "krok", sans-serif;
         font-weight: 400;
-        font-style: normal;
         color: white;
         text-decoration: none;
         font-size: 25px;
         position: relative;
-        padding-bottom: 10px; /* 下線の高さを調整 */
-        transition: all 0.3s ease; /* トランジションを追加 */
+        transition: all 0.3s ease;
+        filter: invert(1);
     }
 
     li a:hover {
@@ -78,15 +81,14 @@ import logo from "../assets/images/Logo.png"
     li a:hover::after {
         transform: scaleX(1);
     }
-    
-    /* レスポンシブデザインの調整 */
+
     @media (max-width: 768px) {
         header {
             padding: 10px 20px;
             height: 50px;
         }
         ul.menu {
-            gap: 20px; /* ギャップをさらに減少 */
+            gap: 20px;
         }
         li a {
             font-size: 18px;
