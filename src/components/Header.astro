@@ -26,15 +26,14 @@ import logo from "../assets/logo.svg";
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         height: 80px;
+        mix-blend-mode: difference;  /* ヘッダー全体に反転効果を適用 */
     }
     a {
         height: 80%;
     }
 
     a .logo {
-        filter: invert(1);
         height: 50px;
-        color: white;
     }
 
     .menu {
@@ -59,7 +58,6 @@ import logo from "../assets/logo.svg";
         font-size: 25px;
         position: relative;
         transition: all 0.3s ease;
-        filter: invert(1);
     }
 
     li a:hover {
