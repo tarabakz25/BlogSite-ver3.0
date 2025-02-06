@@ -26,7 +26,6 @@ const color2 = '#1E1434';
         width: 200px;
         height: 20px;
         transition:
-            border-color 0.3s ease,
             color 0.3s ease,
             transform 0.3s ease,
             box-shadow 0.3s ease;
@@ -40,27 +39,23 @@ const color2 = '#1E1434';
         width: 100%;
         line-height: 1.2;
         transition: color 0.3s ease;
+        z-index: 10;
     }
 
     .contact-box:hover {
         transform: scale(1.1);
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     }
 
     .contact-box::before,
     .contact-box::after {
         content: '';
         position: absolute;
-        border: 2px solid transparent;
-        border-image-slice: 1;
-        border-image-source: linear-gradient(to top left, white, white);
+        border: 2px solid rgba(255, 255, 255, 1); /* 透明度1の純白を指定 */
         width: 100%;
         height: 100%;
         top: -10px;
         left: -10px;
-        z-index: -1;
-        transition:
-            border-color 0.3s ease,
-            border-image-source 0.3s ease;
+        z-index: 1;
+        transition: border-color 0.3s ease;
     }
 </style>

@@ -21,7 +21,6 @@ const color1 = "#EC3A7D"
     <div class="title">
         <div class="container">
             <h1>EnterFlow</h1>
-            <p>Portfolio site</p>
         </div>
         <div class="container">
             <h1>EnterFlow<span>とは？</span></h1>
@@ -129,18 +128,9 @@ const color1 = "#EC3A7D"
         font-family: var(--title_font), sans-serif;
         font-weight: 400;
         font-style: normal;
-        font-size: 80px;
+        font-size: 120px;
         margin: 0;
-        padding-bottom: 20px;
-    }
-    .title .container p {
-        color: white;
-        text-align: left;
-        font-family: var(--title_font);
-        font-weight: 400;
-        font-style: normal;
-        font-size: 25px;
-        margin: 0;
+        padding: 0;
     }
     .title .container h1 {
         color: white;
@@ -150,7 +140,6 @@ const color1 = "#EC3A7D"
         font-style: normal;
         font-size: 80px;
         margin: 0;
-        padding-bottom: 20px;
     }
     .title .container h1 span {
         font-family: var(--description_font);
@@ -281,7 +270,7 @@ const color1 = "#EC3A7D"
         flex-direction: column;
         position: relative;
         z-index: 1;
-        background-color: var(--color2);
+        background-color: rgba(0, 0, 0, 0.7);
     }
     .skills h1 {
         padding: 70px 0;
@@ -394,8 +383,7 @@ const color1 = "#EC3A7D"
         flex-direction: column;
         align-items: center;
         padding: 100px 0;
-        background-color: var(--color2);
-        opacity: 0.8;
+        background-color: rgba(0, 0, 0, 0.7);
     }
 
     .contact h2 {
@@ -413,18 +401,6 @@ const color1 = "#EC3A7D"
         align-items: center;
         justify-content: center;
         position: relative;
-    }
-
-    .contact .container .ContactBox {
-        border: 1px solid white;
-        padding: 10px 20px;
-        margin-bottom: 10px;
-        width: 200px;
-        text-align: center;
-        color: white;
-        font-family: var(--program_font);
-        font-weight: 400;
-        font-size: 18px;
     }
 
     @media (max-width: 768px) {
@@ -454,7 +430,7 @@ const color1 = "#EC3A7D"
     // カメラを中心の周囲を回転させるための設定
     let radius = 20;
     let angle = 0;
-    let cameraHeight = 10;
+    let cameraHeight = 30;
 
     init();
     animate();
@@ -516,9 +492,17 @@ const color1 = "#EC3A7D"
 
         const material = new THREE.PointsMaterial({
             size: 0.4,
-            color: 0xff9900,
+            vertexColors: true,
             sizeAttenuation: true,
         });
+
+        const colors = new Float32Array(positions.length);
+        for(let i = 0; i < positions.length; i += 3) {
+            colors[i] = 1.0;
+            colors[i + 1] = 0.6;
+            colors[i + 2] = 0;
+        }
+        geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
         const points = new THREE.Points(geometry, material);
         scene.add(points);
@@ -550,6 +534,17 @@ const color1 = "#EC3A7D"
             positionAttribute.setY(i, y);
         }
         positionAttribute.needsUpdate = true;
+        
+        const colorAttribute = geometry.attributes.color;
+        for(let i = 0; i < colorAttribute.count; i ++) {
+            const time = elapsed * 0.5;
+            const r = Math.sin(time + i * 0.1) * 0.5 + 0.5;
+            const g = Math.sin(time + i * 0.2) * 0.5 + 0.5;
+            const b = Math.sin(time + i * 0.3) * 0.5 + 0.5;
+
+            colorAttribute.setXYZ(i, r, g, b);
+        }
+        colorAttribute.needsUpdate = true;
 
         // カメラ回転
         angle += 0.001;
