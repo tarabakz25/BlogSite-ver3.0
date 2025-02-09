@@ -1,0 +1,267 @@
+/* タイトルセクション */
+.title .container {
+    width: 100%;
+    height: calc(100vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding-left: 50px;
+    z-index: 1;
+}
+
+.title .container h1 {
+    text-align: left;
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100px;
+    margin: 0;
+}
+
+.title .container h1 span {
+    font-family: var(--description-font);
+}
+
+.title .container h2 {
+    text-align: left;
+    font-family: var(--description-font);
+    font-style: normal;
+    font-size: 25px;
+}
+
+/* アバウトセクション */
+.about {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+.about h1 {
+    padding: 70px 50px;
+    color: var(--text-primary);
+    text-align: left;
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 80px;
+    margin: 0;
+}
+
+.about h1::first-letter {
+    color: var(--color1);
+}
+
+.about .container {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.about .container img {
+    width: 300px;
+    height: auto;
+    max-width: 100%;
+    margin: 20px;
+    flex-shrink: 0;
+}
+
+.about .container .content {
+    color: var(--text-primary);
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-style: normal;
+    padding-left: 100px;
+}
+
+.about .container .content h1 {
+    font-size: 96px;
+    padding: 0;
+}
+
+.about .container .content h2 {
+    font-size: 32px;
+    margin: 0;
+    padding-bottom: 60px;
+    font-family: var(--description-font);
+}
+
+.about .container .content p {
+    line-height: 1.5;
+    margin: 0;
+    padding-bottom: 20px;
+    font-size: 18px;
+    font-family: var(--description-font);
+}
+
+/* ワークスセクション */
+.works {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+.works h1 {
+    padding: 70px 0;
+    color: var(--text-primary);
+    text-align: left;
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 80px;
+    margin-left: 50px;
+}
+
+.works h1::first-letter {
+    color: var(--color1);
+}
+
+.works .container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 70px;
+}
+
+/* スキルセクション */
+.skills {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+.skills h1 {
+    padding: 70px 0;
+    color: var(--text-primary);
+    text-align: left;
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 80px;
+    padding-left: 50px;
+    letter-spacing: 0.1em;
+}
+
+.skills h1::first-letter {
+    color: var(--color1);
+}
+
+.skills .container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 70px;
+}
+
+.skills .container .programming h2 {
+    color: var(--text-primary);
+    font-family: var(--program-font);
+    font-weight: 400;
+    font-size: 48px;
+    margin: 0 auto;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.skills .container .programming .container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+    position: relative;
+    padding-bottom: 70px;
+}
+
+.skills .container .programming .languages,
+.skills .container .programming .frameworks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.skills .container .programming .languages h3,
+.skills .container .programming .frameworks h3 {
+    color: var(--text-primary);
+    font-family: var(--program-font);
+    font-weight: 400;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* コンタクトセクション */
+.contact {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.contact h2 {
+    color: var(--text-primary);
+    font-family: var(--program-font);
+    font-weight: 400;
+    font-size: 48px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.contact .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.contact p {
+    color: var(--text-primary);
+    font-family: var(--program-font);
+    font-weight: 400;
+    font-size: 64px;
+    text-align: center;
+    margin: 120px auto;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .about .container img {
+        width: 100%;
+        max-width: 300px;
+        margin-right: 10px;
+    }
+    .title h1 {
+        font-size: 60px;
+    }
+    .title p {
+        font-size: 20px;
+    }
+    .about h1 {
+        font-size: 60px;
+        padding: 50px 0;
+    }
+}

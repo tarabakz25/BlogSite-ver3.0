@@ -1,15 +1,58 @@
 ---
 import logo from "../assets/logo.svg";
+import sun from "../assets/sun.svg";
+import moon from "../assets/moon.svg";
 ---
 <header>
     <a href="/"><img src={logo.src} alt="Logo" class="logo"></a>
     <ul class="menu">
-        <li><a href="/about">About</a></li>
         <li><a href="/blog">Blog</a></li>
         <li><a href="/works">Works</a></li>
+        <li>
+            <button id="theme-toggle" aria-label="テーマ切り替え">
+                <span class="theme-icon">
+                    <img src={sun.src} alt="sun" class="theme-img sun">
+                    <img src={moon.src} alt="moon" class="theme-img moon">
+                </span>
+            </button>
+        </li>
     </ul>
 </header>
+<script>
+    function updateIcon(theme: string, sunIcon: Element | null, moonIcon: Element | null) {
+        if (sunIcon instanceof HTMLElement && moonIcon instanceof HTMLElement) {
+            if (theme === 'light') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
+    }
 
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) {
+        console.error('Theme toggle button not found');
+    } else {
+        const sunIcon = themeToggle.querySelector('.sun');
+        const moonIcon = themeToggle.querySelector('.moon');
+
+        // ローカルストレージからテーマを取得
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateIcon(currentTheme, sunIcon, moonIcon);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme, sunIcon, moonIcon);
+        });
+    }
+</script>
 <style>
     header {
         position: fixed;
@@ -24,16 +67,12 @@ import logo from "../assets/logo.svg";
         backdrop-filter: blur(10px);
         align-items: center;
         z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.0);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         height: 80px;
-        mix-blend-mode: difference;  /* ヘッダー全体に反転効果を適用 */
-    }
-    a {
-        height: 80%;
     }
 
-    a .logo {
-        height: 50px;
+    a {
+        height: 80%;
     }
 
     .menu {
@@ -43,17 +82,28 @@ import logo from "../assets/logo.svg";
         padding: 0;
         margin: 0;
         height: 100%;
+        color: var(--text);
     }
 
-    li {
+    a .logo {
+        height: 50px;
+    }
+
+    /* メニューリンクを持つli要素 */
+    li:not(:last-child) {
         display: flex;
         align-items: flex-end;
     }
 
+    /* テーマトグルを持つli要素 */
+    li:last-child {
+        display: flex;
+        align-items: center;
+    }
     li a {
         font-family: "krok", sans-serif;
         font-weight: 400;
-        color: white;
+        color: var(--text);
         text-decoration: none;
         font-size: 25px;
         position: relative;
@@ -61,7 +111,7 @@ import logo from "../assets/logo.svg";
     }
 
     li a:hover {
-        color: #EB3A7D;
+        color: var(--accent);
     }
 
     li a::after {
@@ -71,7 +121,7 @@ import logo from "../assets/logo.svg";
         height: 2px;
         bottom: -5px;
         left: 0;
-        background-color: #EB3A7D;
+        background-color: var(--accent);
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
@@ -91,5 +141,34 @@ import logo from "../assets/logo.svg";
         li a {
             font-size: 18px;
         }
+    }
+
+    .theme-img {
+        width: 24px;
+        height: 24px;
+        transition: all 0.3s ease;
+    }
+
+    /* ライトテーマの時はアイコンを反転 */
+    :root[data-theme="light"] .theme-img {
+        filter: invert(1);
+    }
+
+    /* ダークテーマの時はアイコンを通常表示 */
+    :root[data-theme="dark"] .theme-img {
+        filter: invert(0);
+    }
+    .theme-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #theme-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background-color 0.3s;
     }
 </style>

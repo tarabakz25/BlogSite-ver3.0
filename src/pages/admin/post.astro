@@ -1,0 +1,396 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import MarkdownEditor from '../../components/MarkdownEditor.astro';
+
+const title_font = "krok, sans-serif";
+const description_font = "Zen Old Mincho";
+const program_font = "Anonymous pro";
+const color1 = "#EC3A7D";
+---
+
+<MainLayout title="New Post | EnterFlow">
+    <div class="post-editor">
+        <form id="post-form" class="editor-form">
+            <div class="title-section">
+                <input type="text" id="title" name="title" placeholder="記事のタイトル" required class="title-input">
+            </div>
+
+            <div class="tags-section">
+                <div class="tags-container" id="tags-container">
+                    <!-- タグはJavaScriptで動的に追加 -->
+                </div>
+                <input type="text" id="tag-input" placeholder="プレスEnterでタグを追加" class="tag-input">
+                <input type="hidden" id="tags" name="tags">
+            </div>
+
+            <div class="content-section">
+                <MarkdownEditor name="content" />
+            </div>
+
+            <div class="side-section">
+                <div class="section-box">
+                    <h3>記事の設定</h3>
+                    <div class="form-group">
+                        <label for="description">記事の説明</label>
+                        <textarea id="description" name="description" rows="3" required placeholder="記事の概要を書いてください"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="coverImage">カバー画像</label>
+                        <input type="url" id="coverImage" name="coverImage" placeholder="https://example.com/image.jpg">
+                        <div id="image-preview" class="image-preview"></div>
+                    </div>
+                </div>
+
+                <div class="section-box">
+                    <h3>公開設定</h3>
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary" data-action="publish">公開する</button>
+                        <button type="button" class="btn secondary" data-action="draft">下書き保存</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</AdminLayout>
+
+<style>
+    .post-editor {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: calc(100vh - 80px);
+    }
+
+    .editor-form {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .title-section {
+        grid-column: 1 / -1;
+        margin-bottom: 2rem;
+    }
+
+    .title-input {
+        width: 100%;
+        font-size: 2rem;
+        font-family: var(--description_font);
+        padding: 1rem;
+        background: transparent;
+        color: var(--text);
+        border: none;
+        border-bottom: 2px solid var(--border);
+    }
+
+    .title-input:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+
+    .tags-section {
+        grid-column: 1 / -1;
+        margin-bottom: 2rem;
+    }
+
+    .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        min-height: 32px;
+    }
+
+    .tag {
+        background: var(--accent);
+        color: var(--background);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-family: var(--program_font);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tag button {
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        padding: 0;
+        font-size: 1.2rem;
+        line-height: 1;
+        opacity: 0.8;
+    }
+
+    .tag button:hover {
+        opacity: 1;
+    }
+
+    .tag-input {
+        width: 100%;
+        padding: 0.5rem;
+        background: transparent;
+        color: var(--text);
+        font-family: var(--program_font);
+        font-size: 1rem;
+        border: none;
+        border-bottom: 2px solid var(--border);
+    }
+
+    .tag-input:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+
+    .content-section {
+        grid-column: 1;
+    }
+
+    .side-section {
+        grid-column: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .section-box {
+        background: var(--surface);
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+
+    .section-box h3 {
+        margin: 0 0 1.5rem 0;
+        font-family: var(--description_font);
+        color: var(--text);
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text);
+        font-family: var(--description_font);
+        font-size: 1rem;
+    }
+
+    textarea, input[type="url"] {
+        width: 100%;
+        padding: 0.75rem;
+        background: transparent;
+        color: var(--text);
+        font-family: var(--program_font);
+        font-size: 1rem;
+        border: none;
+        border-bottom: 2px solid var(--border);
+        resize: vertical;
+    }
+
+    textarea:focus, input[type="url"]:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+
+    .image-preview {
+        margin-top: 1rem;
+        width: 100%;
+        height: 150px;
+        background: var(--surface);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .image-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .form-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        border-radius: 25px;
+        font-family: var(--program_font);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn.primary {
+        background-color: var(--accent);
+        color: var(--background);
+    }
+
+    .btn.primary:hover {
+        background-color: #d62e6b;
+    }
+
+    .btn.secondary {
+        background-color: transparent;
+        border: 2px solid var(--accent);
+        color: var(--text);
+    }
+
+    .btn.secondary:hover {
+        background-color: var(--accent);
+        color: var(--background);
+    }
+
+    :global(.markdown-editor) {
+        background: var(--background);
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    :global(.markdown-editor .editor),
+    :global(.markdown-editor .preview) {
+        background: var(--background);
+        border: 2px solid var(--accent);
+        border-radius: 8px;
+        padding: 1rem;
+        color: var(--text);
+    }
+
+    :global(.markdown-editor .preview) {
+        font-family: var(--description_font);
+    }
+
+    @media (max-width: 768px) {
+        .editor-form {
+            grid-template-columns: 1fr;
+        }
+
+        .side-section {
+            grid-column: 1;
+        }
+
+        .post-editor {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<script is:inline>
+    // タグ管理
+    const tagsContainer = document.getElementById('tags-container');
+    const tagInput = document.getElementById('tag-input');
+    const tagsHidden = document.getElementById('tags');
+    const tags = new Set();
+
+    function updateTags() {
+        tagsHidden.value = Array.from(tags).join(',');
+    }
+
+    function addTag(tag) {
+        if (tag && !tags.has(tag)) {
+            tags.add(tag);
+            const tagElement = document.createElement('span');
+            tagElement.className = 'tag';
+            tagElement.innerHTML = `
+                ${tag}
+                <button type="button" onclick="removeTag('${tag}')">&times;</button>
+            `;
+            tagsContainer.appendChild(tagElement);
+            updateTags();
+        }
+    }
+
+    function removeTag(tag) {
+        tags.delete(tag);
+        updateTags();
+        const tagElements = tagsContainer.getElementsByClassName('tag');
+        for (let el of tagElements) {
+            if (el.textContent.trim() === tag) {
+                el.remove();
+                break;
+            }
+        }
+    }
+
+    tagInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const tag = tagInput.value.trim();
+            if (tag) {
+                addTag(tag);
+                tagInput.value = '';
+            }
+        }
+    });
+
+    // カバー画像プレビュー
+    const coverImageInput = document.getElementById('coverImage');
+    const imagePreview = document.getElementById('image-preview');
+
+    coverImageInput.addEventListener('input', () => {
+        const url = coverImageInput.value;
+        if (url) {
+            imagePreview.innerHTML = `<img src="${url}" alt="カバー画像プレビュー">`;
+        } else {
+            imagePreview.innerHTML = '';
+        }
+    });
+
+    // フォーム送信
+    const form = document.getElementById('post-form');
+    const publishBtn = form.querySelector('[data-action="publish"]');
+    const draftBtn = form.querySelector('[data-action="draft"]');
+
+    async function handleSubmit(isDraft) {
+        const formData = new FormData(form);
+        const postData = {
+            title: formData.get('title'),
+            description: formData.get('description'),
+            content: formData.get('content'),
+            coverImage: formData.get('coverImage'),
+            tags: Array.from(tags),
+            draft: isDraft,
+            pubDate: new Date().toISOString()
+        };
+
+        try {
+            const response = await fetch('/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            });
+
+            if (response.ok) {
+                window.location.href = '/admin/posts';
+            } else {
+                throw new Error('投稿に失敗しました');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('投稿に失敗しました。もう一度お試しください。');
+        }
+    }
+
+    publishBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleSubmit(false);
+    });
+
+    draftBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleSubmit(true);
+    });
+</script>

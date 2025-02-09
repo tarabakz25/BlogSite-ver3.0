@@ -8,51 +8,254 @@ const { name, value = '' } = Astro.props;
 ---
 
 <div class="markdown-editor">
-  <textarea 
-    id={name}
-    name={name}
-    class="editor"
-    value={value}
-  ></textarea>
-  
-  <div class="preview"></div>
+  <div class="toolbar">
+    <button type="button" data-action="bold" title="太字">B</button>
+    <button type="button" data-action="italic" title="斜体">I</button>
+    <button type="button" data-action="code" title="コード">{`<>`}</button>
+    <button type="button" data-action="link" title="リンク">🔗</button>
+    <button type="button" data-action="image" title="画像">📷</button>
+    <button type="button" data-action="list" title="リスト">•</button>
+    <button type="button" data-action="quote" title="引用">❝</button>
+    <div class="separator"></div>
+    <button type="button" data-action="preview" title="プレビュー切替">👁️</button>
+  </div>
+
+  <div class="editor-container">
+    <textarea 
+      id={name}
+      name={name}
+      class="editor"
+      value={value}
+      placeholder="マークダウン記法で記事を書く"
+    ></textarea>
+    
+    <div class="preview"></div>
+  </div>
 </div>
 
 <style>
   .markdown-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 600px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .toolbar button {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border);
+    background: var(--background);
+    color: var(--text);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--program_font);
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+
+  .toolbar button:hover {
+    background: var(--surface);
+    border-color: var(--accent);
+  }
+
+  .separator {
+    width: 1px;
+    background: var(--border);
+    margin: 0 0.25rem;
+  }
+
+  .editor-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    height: 500px;
+    gap: 0.5rem;
+    height: 100%;
+    padding: 0.5rem;
   }
 
   .editor {
     width: 100%;
     height: 100%;
-    padding: 1rem;
-    border: 1px solid #ccc;
+    padding: 0.5rem;
+    background: var(--background);
+    border: 1px solid var(--border);
     border-radius: 4px;
     resize: none;
-    font-family: monospace;
+    font-family: var(--program_font);
+    font-size: 0.875rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .editor:focus {
+    outline: none;
+    border-color: var(--accent);
   }
 
   .preview {
-    padding: 1rem;
-    border: 1px solid #ccc;
+    padding: 0.5rem;
+    background: var(--background);
+    border: 1px solid var(--border);
     border-radius: 4px;
     overflow-y: auto;
+    color: var(--text);
+    font-size: 0.875rem;
+  }
+
+  /* プレビューのスタイル */
+  .preview :global(h1),
+  .preview :global(h2),
+  .preview :global(h3) {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    font-weight: 600;
+  }
+
+  .preview :global(p) {
+    margin-bottom: 1em;
+    line-height: 1.8;
+  }
+
+  .preview :global(code) {
+    background: var(--surface);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: var(--program_font);
+  }
+
+  .preview :global(pre) {
+    background: var(--surface);
+    padding: 1em;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1em 0;
+  }
+
+  .preview :global(blockquote) {
+    border-left: 4px solid var(--accent);
+    margin: 1em 0;
+    padding-left: 1em;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  .preview :global(ul),
+  .preview :global(ol) {
+    margin: 1em 0;
+    padding-left: 2em;
+  }
+
+  .preview :global(li) {
+    margin: 0.5em 0;
+  }
+
+  .preview :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .preview :global(a) {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .preview :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .editor-container {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 
 <script>
   import { marked } from 'marked';
 
-  const textarea = document.querySelector<HTMLTextAreaElement>('.editor');
+  const editor = document.querySelector<HTMLTextAreaElement>('.editor');
   const preview = document.querySelector<HTMLDivElement>('.preview');
+  const toolbar = document.querySelector<HTMLDivElement>('.toolbar');
   
-  if (textarea && preview) {
-    textarea.addEventListener('input', async () => {
-      preview.innerHTML = await marked.parse(textarea.value);
+  if (editor && preview && toolbar) {
+    // プレビューの初期化
+    const updatePreview = async () => {
+      preview.innerHTML = await marked.parse(editor.value);
+    };
+
+    editor.addEventListener('input', updatePreview);
+    updatePreview();
+
+    // ツールバーの機能
+    toolbar.addEventListener('click', (e) => {
+      const button = (e.target as HTMLElement).closest('button');
+      if (!button) return;
+
+      const action = button.dataset.action;
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const selection = editor.value.substring(start, end);
+
+      let replacement = '';
+      switch (action) {
+        case 'bold':
+          replacement = `**${selection || '太字'}**`;
+          break;
+        case 'italic':
+          replacement = `*${selection || '斜体'}*`;
+          break;
+        case 'code':
+          replacement = selection.includes('\n')
+            ? `\`\`\`\n${selection || 'コード'}\n\`\`\``
+            : `\`${selection || 'コード'}\``;
+          break;
+        case 'link':
+          replacement = `[${selection || 'リンクテキスト'}](URL)`;
+          break;
+        case 'image':
+          replacement = `![${selection || '画像の説明'}](画像のURL)`;
+          break;
+        case 'list':
+          replacement = `\n- ${selection || 'リストアイテム'}`;
+          break;
+        case 'quote':
+          replacement = `> ${selection || '引用テキスト'}`;
+          break;
+        case 'preview':
+          document.querySelector('.editor-container')?.classList.toggle('preview-mode');
+          return;
+      }
+
+      editor.focus();
+      editor.setRangeText(replacement, start, end, 'select');
+      updatePreview();
     });
+
+    // 自動保存
+    let saveTimeout: ReturnType<typeof setTimeout>;
+    editor.addEventListener('input', () => {
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        localStorage.setItem('draft-' + editor.id, editor.value);
+      }, 1000);
+    });
+
+    // 下書きの復元
+    const savedDraft = localStorage.getItem('draft-' + editor.id);
+    if (savedDraft) {
+      editor.value = savedDraft;
+      updatePreview();
+    }
   }
-</script>

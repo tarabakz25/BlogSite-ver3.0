@@ -1,0 +1,72 @@
+/* テーマ変数の定義 */
+:root[data-theme="dark"] {
+  --background: #000000;
+  --text: #FFFFFF;
+  --accent: #EC3A7D;
+  --surface: #1F2937;
+  --border: #374151;
+  --text-primary: white;
+  --border-color: white;
+}
+
+:root[data-theme="light"] {
+  --background: #FFFFFF;
+  --text: #000000;
+  --accent: #EC3A7D;
+  --surface: #F3F4F6;
+  --border: #E5E7EB;
+  --text-primary: black;
+  --border-color: black;
+}
+
+/* フォント変数の定義 */
+:root {
+  --title-font: krok, sans-serif;
+  --description-font: "Zen Old Mincho";
+  --program-font: "Anonymous pro";
+  --color1: #EC3A7D;
+}
+
+/* 共通のトランジション */
+* {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+/* ベーススタイル */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* アクセントカラー以外の文字色を反転 */
+[data-theme="light"] *:not([class*="accent"]) {
+  color: var(--text);
+}
+
+[data-theme="dark"] *:not([class*="accent"]) {
+  color: var(--text);
+}
+
+/* アクセントカラーの要素 */
+.accent {
+  color: var(--accent) !important;
+}
+
+/* 背景要素 */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#followCanvas {
+  width: 100%;
+  height: 100%;
+  position: fixed;
